@@ -19,7 +19,7 @@
           <li><a href="#contact">contact</a></li>
           -->
           <li v-for="(nav, key) in headerNav" :key="key">
-            <a :href="nav.url">{{ nav.title }}</a>
+            <a :href="nav.url" @click="scrollLink($event)">{{ nav.title }}</a>
           </li>
         </ul>
       </nav>
@@ -41,7 +41,17 @@ export default{
   methods:{
     toggleMobileMenu(){
       this.isNavVisible = !this.isNavVisible;
-    }
+    },
+    scrollLink(event){
+      event.preventDefault();
+
+      const targetId = event.target.getAttribute("href");
+      const targetElement = document.querySelector(targetId);
+
+      if(targetElement){
+        targetElement.scrollIntoView({behavior:"smooth"});
+      }
+    },
   }
 }
 </script>
